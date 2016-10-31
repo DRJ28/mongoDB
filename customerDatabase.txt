@@ -1,0 +1,25 @@
+use customers
+db.createUser({
+	"user": "dheeraj",
+	"pwd": "1234",
+	"roles": [{role:"clusterAdmin",db: "admin"},
+				{role:"readAnyDatabase", db: "admin"},
+				"readWrite"
+				]},
+				{
+				w:"majority",
+				wtimeout:5000});
+
+//create collection(tble)
+db.createCollection('customer')
+show collections
+db.customer.insert({'first_name':'dheeraj','last_name':'mehta'})
+db.customer.find()
+db.customer.find().pretty()
+
+db.customer.insert([
+	{'first_name':'neeraj','last_name':'kumar'},
+	{'first_name':'rahul','last_name':'sharma'},
+	{'first_name':'sahil','last_name':'singh'}
+])
+db.customer.find({'first_name':'neeraj'})

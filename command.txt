@@ -1,0 +1,69 @@
+to create new database or use existing database: use databasse_name
+
+To check your currently selected database use the command: db
+
+If you want to check your databases list, then use the command: show dbs
+
+Your created database (mydb) is not present in list. To display database you need to insert atleast one document into it.
+
+To drop a databas, 
+first check all db list: show dbs
+second switch to that db: use mydb_example
+then run command: db.dropDatabase()
+
+Create Collections,
+:use mydb
+:show collections
+:db.createCollection("mycollection")  
+:db.createCollection("mycol", { capped : true, autoIndexID : true, size : 6142800, max : 10000 } ) //Second parameter is optional
+:show collections
+***capped-Boolean--(Optional) If true, enables a capped collection. Capped collection is a collection fixed size collecction that automatically overwrites its oldest entries when it reaches its maximum size. If you specify true, you need to specify size parameter also.
+***autoIndexID-Boolean--(Optional) If true, automatically create index on _id field.s Default value is false.
+***size-number--(Optional) Specifies a maximum size in bytes for a capped collection. If If capped is true, then you need to specify this field also.
+***max-number--(Optional) Specifies the maximum number of documents allowed in the capped collection
+
+DB creates collections automatically when you insert document in it
+:db.collectionname.insert('name':'dheeraj')
+
+To drop a collection
+:db.COLLECTION_NAME.drop()
+
+Mongodb data types: string, integer, boolean, double, min/max, arrays, timpstamp, object, null, symbol,date, ObjectID(documentid), binary data, code(javascriptcode), regularexp
+
+To insert into collections
+To insert data into MongoDB collection, you need to use MongoDB's insert() or save()method.
+db.mycol.insert({
+   _id: ObjectId(7df78ad8902c),
+   title: 'MongoDB Overview', 
+   description: 'MongoDB is no sql database',
+   by: 'tutorials point',
+   url: 'http://www.tutorialspoint.com',
+   tags: ['mongodb', 'database', 'NoSQL'],
+   likes: 100
+})
+If you dont specify _id, it will create one for each document.
+or you can pass array of document: db.mycol.insert([{},{},{}])
+
+To query data from MongoDB collection, you need to use MongoDB's find() method. : db.collectionname.find()
+To display the results in a formatted way, you can use pretty() method.   		: db.collectionname.find().pretty()
+***************Second argument is to show fields: db.mycol.find({},{"title":1,"_id":0})
+************************************************: db.mycol.find({},{"title":1,_id:0}).limit(1).skip(1).sort(key:1or-1)
+AND in MongoDB
+In the find() method if you pass multiple keys by separating them by ',' then MongoDB treats it AND condition. Basic syntax of AND is shown below −
+:db.mycol.find({key1:value1, key2:value2}).pretty()
+:db.mycol.find({key1:value1}).pretty()
+:db.mycol.find({key1:{$lt:20}}).pretty() , $lt, $gt, $lte, $gte
+OR in MongoDB
+:db.mycol.find({
+	$or: [
+		{key:value},{key:value}
+	]
+})
+
+:db.mycol.find({"likes": {$gt:10}, $or: [{"by": "tutorials point"},
+   {"title": "MongoDB Overview"}]}).pretty()
+
+Update: db.mycol.update({key:value},{$set:{key:vaklue}}, {multi:true})  //if multi is not passed, it will only updatefirst encounter
+
+Deletion: db.COLLECTION_NAME.remove(DELETION_CRITERIA,1) // 1 is optional, if not it will delete only first match
+equivalent of SQL's truncate command. : db.mycol.remove() // remov all document
