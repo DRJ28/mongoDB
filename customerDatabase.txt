@@ -23,3 +23,43 @@ db.customer.insert([
 	{'first_name':'sahil','last_name':'singh'}
 ])
 db.customer.find({'first_name':'neeraj'})
+
+db.customer.update({first_name:'sahil'},{$set:{last_name:'sachar'}}, {multi:true})  //if multi is not passed, it will only updatefirst encounter
+
+upsert// if not found for update, it will insert a new record
+db.customer.update({first_name: 'Hitesh'},{$set:{
+	first_name: 'Hitesh',
+	last_name: 'Sambher',
+	gender: 'male'
+}}, {upsert: true})
+
+db.customer.update({first_name:'rahul'},{$unset:{last_name:1}})
+db.customer.update({first_name:'sahil'},{$inc:{age:2}})
+db.customer.remove({first_name: 'neeraj'}) //remove all 
+db.customer.remove({first_name: 'neeraj'}, true) //remove first occurance
+db.customer.remove({age: {$gt:25}})
+db.customer.insert({
+	first_name: 'Shraddha',
+	last_name: 'Kapoor',
+	profession: 'Actresses',
+	address: {
+		state: 'Maharastra',
+		city: 'Mumbai',
+		street: 'malad',
+		pin: 123456
+	},
+	movies: [
+		{
+			name: 'Bagi',
+			year: 2016,
+		},
+		{
+			name: 'ABCD',
+			year: '2015'
+		}
+	]
+})
+db.customer.find({first_name: 'Shraddha'}, {movies: 1})
+db.customer.find({first_name: 'Shraddha'}, {"movies.name": 1})
+
+db.customer.update({first_name: 'Shraddha'}, {$push:{movies: {name:'Rock On2',year: 2017}}})
