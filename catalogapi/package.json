@@ -1,0 +1,9 @@
+{
+	"name": "catalogapi",
+	"versions": "1.0.0",
+	"dependencies": {
+		"express": "*",
+		"body-parser": "*",
+		"mongojs": "*"
+	}
+}

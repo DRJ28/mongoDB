@@ -1,0 +1,35 @@
+##product catalog
+#nodejs and express setup
+express run on top of nodejs, its a package from node
+use mongojs to interect with mongodb
+-> install node from https://nodejs.org
+-> npm install express
+-> npm install body-parser   ...for handling response from form in POST
+-> install mongojs
+
+db.products.insert({
+	name: 'Microsoft lappi',
+	category: 'laptop',
+	model: 'AAMIC678',
+	img: 'http://pisces.bbystatic.com/image2/BestBuy_US/images/products/4321/4321200_sd.jpg;maxHeight=550;maxWidth=642',
+	price: 49999,
+	description: 'a laptop with config 64gb ram: -)',
+	specification: {
+		height: '7.36inches',
+		weihgt: '1.2kg',
+		battery_life: '10Hours'
+	}
+})
+
+db.products.insert({
+	name: 'LG tv',
+	category: 'television',
+	model: 'lg5667svg',
+	img: 'https://rukminim1.flixcart.com/image/832/832/television/g/g/j/lg-24lh452a-original-imaemzhb9wdk7dxz.jpeg?q=70',
+	description: 'LG 60cm ',
+	specification: {
+		height: '60cm',
+		weihgt: '3.2kg',
+		screen_type: 'LED'
+	}
+})
