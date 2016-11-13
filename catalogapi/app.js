@@ -42,5 +42,35 @@ app.post('/products', function(req, res){
 		}
 	})
 });
+
+app.put('/products/:id', function(req, res){
+	db.products.findAndModify({query: {_id:mongojs.ObjectId(req.params.id)},
+		update:{$set: {
+			name: req.body.name,
+			category: req.body.category
+		}},
+		new: true
+	}, function(err, doc){
+		if (err) {
+			console.log('error occured');
+			res.send(err);
+		}else{
+			console.log('updating product');
+			res.json(doc);
+		}
+	})
+});
+app.delete('/products/:id', function(req, res){
+	db.products.remove({query: {_id:mongojs.ObjectId(req.params.id)}}, function(err, doc){
+		if (err) {
+			console.log('error occured');
+			res.send(err);
+		}else{
+			console.log('doc delete');
+			res.json(doc);
+		}
+	})
+});
+
 app.listen(4000);
 console.log('Server started at 4000');
